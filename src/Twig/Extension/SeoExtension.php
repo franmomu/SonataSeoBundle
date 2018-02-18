@@ -51,6 +51,7 @@ class SeoExtension extends AbstractExtension
             new TwigFunction('sonata_seo_link_canonical', [$this, 'getLinkCanonical'], ['is_safe' => ['html']]),
             new TwigFunction('sonata_seo_lang_alternates', [$this, 'getLangAlternates'], ['is_safe' => ['html']]),
             new TwigFunction('sonata_seo_oembed_links', [$this, 'getOembedLinks'], ['is_safe' => ['html']]),
+            new TwigFunction('sonata_seo_structured_data', [$this, 'getStructuredData'], ['is_safe' => ['html']]),
         ];
     }
 
@@ -264,5 +265,19 @@ class SeoExtension extends AbstractExtension
     private function normalize($string)
     {
         return htmlentities(strip_tags((string) $string), ENT_COMPAT, $this->encoding);
+    }
+
+    /**
+     * Creates a script tag with type 'json-ld' and the JSON-LD string stored in page object.
+     *
+     * @return string
+     */
+    public function getStructuredData()
+    {
+        if (empty($this->page->getStructuredData())) {
+            return '';
+        }
+
+        return sprintf("<script type=\"application/ld+json\">%s</script>\n", $this->page->getStructuredData());
     }
 }

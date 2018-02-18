@@ -21,6 +21,15 @@ class SeoExtensionTest extends TestCase
 {
     public function testHtmlAttributes()
     {
+        $page = $this->createMock('Sonata\SeoBundle\Seo\SeoPageInterface');
+        $page->expects($this->once())->method('getHtmlAttributes')->will(
+            $this->returnValue(
+                [
+                    'xmlns' => 'http://www.w3.org/1999/xhtml',
+                    'xmlns:og' => 'http://opengraphprotocol.org/schema/',
+                ]
+            )
+        );
         $page = $this->createMock(SeoPageInterface::class);
         $page->expects($this->once())->method('getHtmlAttributes')->willReturn([
             'xmlns' => 'http://www.w3.org/1999/xhtml',
@@ -125,7 +134,7 @@ class SeoExtensionTest extends TestCase
         $page = $this->createMock(SeoPageInterface::class);
         $page->expects($this->once())->method('getLangAlternates')->willReturn([
                     'http://example.com/' => 'x-default',
-                ]);
+        ]);
 
         $extension = new SeoExtension($page, 'UTF-8');
 
@@ -137,6 +146,14 @@ class SeoExtensionTest extends TestCase
 
     public function testOEmbedLinks()
     {
+        $page = $this->createMock('Sonata\SeoBundle\Seo\SeoPageInterface');
+        $page->expects($this->once())->method('getOembedLinks')->will(
+            $this->returnValue(
+                [
+                    'Foo' => 'http://example.com/',
+                ]
+            )
+        );
         $page = $this->createMock(SeoPageInterface::class);
         $page->expects($this->once())->method('getOembedLinks')->willReturn([
             'Foo' => 'http://example.com/',
@@ -147,6 +164,30 @@ class SeoExtensionTest extends TestCase
         $this->assertSame(
             "<link rel=\"alternate\" type=\"application/json+oembed\" href=\"http://example.com/\" title=\"Foo\" />\n",
             $extension->getOembedLinks()
+        );
+    }
+
+    public function testStructuredData()
+    {
+        $page = $this->createMock('Sonata\SeoBundle\Seo\SeoPageInterface');
+        $page->expects($this->any())->method('getStructuredData')->will($this->returnValue(file_get_contents(__DIR__ . '/../../Fixtures/structured_data.jsonld')));
+
+        $extension = new SeoExtension($page, 'UTF-8');
+
+        $this->assertEquals(
+'<script type="application/ld+json">{
+  "@context": "http://schema.org",
+  "@type": "Organization",
+  "url": "http://www.example.com",
+  "name": "Unlimited Ball Bearings Corp.",
+  "contactPoint": {
+    "@type": "ContactPoint",
+    "telephone": "+1-401-555-1212",
+    "contactType": "Customer service"
+  }
+}</script>
+',
+            $extension->getStructuredData()
         );
     }
 }
