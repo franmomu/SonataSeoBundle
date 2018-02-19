@@ -258,20 +258,6 @@ class SeoExtension extends AbstractExtension
     }
 
     /**
-     * Creates a script tag with type 'json-ld' and the JSON-LD string stored in page object.
-     *
-     * @return string
-     */
-    public function getStructuredData()
-    {
-        if (empty($this->page->getStructuredData())) {
-            return '';
-        }
-
-        return sprintf("<script type=\"application/ld+json\">%s</script>\n", $this->page->getStructuredData());
-    }
-
-    /**
      * @param string $string
      *
      * @return mixed
