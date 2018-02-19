@@ -51,7 +51,6 @@ class SeoExtension extends AbstractExtension
             new TwigFunction('sonata_seo_link_canonical', [$this, 'getLinkCanonical'], ['is_safe' => ['html']]),
             new TwigFunction('sonata_seo_lang_alternates', [$this, 'getLangAlternates'], ['is_safe' => ['html']]),
             new TwigFunction('sonata_seo_oembed_links', [$this, 'getOembedLinks'], ['is_safe' => ['html']]),
-            new TwigFunction('sonata_seo_structured_data', [$this, 'getStructuredData'], ['is_safe' => ['html']]),
         ];
     }
 
