@@ -430,6 +430,8 @@ class SeoPage implements SeoPageInterface
     public function setStructuredData($structuredData)
     {
         $this->structuredData = $structuredData;
+
+        return $this;
     }
 
     /**
