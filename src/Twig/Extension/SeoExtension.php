@@ -258,16 +258,6 @@ class SeoExtension extends AbstractExtension
     }
 
     /**
-     * @param string $string
-     *
-     * @return mixed
-     */
-    private function normalize($string)
-    {
-        return htmlentities(strip_tags((string) $string), ENT_COMPAT, $this->encoding);
-    }
-
-    /**
      * Creates a script tag with type 'json-ld' and the JSON-LD string stored in page object.
      *
      * @return string
@@ -279,5 +269,15 @@ class SeoExtension extends AbstractExtension
         }
 
         return sprintf("<script type=\"application/ld+json\">%s</script>\n", $this->page->getStructuredData());
+    }
+
+    /**
+     * @param string $string
+     *
+     * @return mixed
+     */
+    private function normalize($string)
+    {
+        return htmlentities(strip_tags((string) $string), ENT_COMPAT, $this->encoding);
     }
 }
