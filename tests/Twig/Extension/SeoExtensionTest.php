@@ -21,15 +21,6 @@ class SeoExtensionTest extends TestCase
 {
     public function testHtmlAttributes()
     {
-        $page = $this->createMock('Sonata\SeoBundle\Seo\SeoPageInterface');
-        $page->expects($this->once())->method('getHtmlAttributes')->will(
-            $this->returnValue(
-                [
-                    'xmlns' => 'http://www.w3.org/1999/xhtml',
-                    'xmlns:og' => 'http://opengraphprotocol.org/schema/',
-                ]
-            )
-        );
         $page = $this->createMock(SeoPageInterface::class);
         $page->expects($this->once())->method('getHtmlAttributes')->willReturn([
             'xmlns' => 'http://www.w3.org/1999/xhtml',
@@ -146,14 +137,6 @@ class SeoExtensionTest extends TestCase
 
     public function testOEmbedLinks()
     {
-        $page = $this->createMock('Sonata\SeoBundle\Seo\SeoPageInterface');
-        $page->expects($this->once())->method('getOembedLinks')->will(
-            $this->returnValue(
-                [
-                    'Foo' => 'http://example.com/',
-                ]
-            )
-        );
         $page = $this->createMock(SeoPageInterface::class);
         $page->expects($this->once())->method('getOembedLinks')->willReturn([
             'Foo' => 'http://example.com/',

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the Sonata Project package.
  *
@@ -12,23 +14,23 @@
 namespace Sonata\SeoBundle\Tests\Request;
 
 use PHPUnit\Framework\TestCase;
-use Sonata\SeoBundle\Seo\StructuredDataAwarePage;
+use Sonata\SeoBundle\Seo\PageWithStructuredData;
 use Sonata\SeoBundle\Twig\Extension\StructuredDataExtension;
 
 /**
  * @author Maximilian Berghoff <Maximilian.Berghoff@gmx.de>
  */
-class StructuredDataExtensionTest extends TestCase
+final class StructuredDataExtensionTest extends TestCase
 {
-    public function testStructuredData()
+    public function testStructuredData(): void
     {
-        $page = $this->createMock(StructuredDataAwarePage::class);
+        $page = $this->createMock(PageWithStructuredData::class);
 
-        $page->expects($this->any())
+        $page
             ->method('getStructuredData')
-            ->will($this->returnValue(file_get_contents(__DIR__.'/../../Fixtures/structured_data.jsonld')));
+            ->willReturn(file_get_contents(__DIR__ . '/../../Fixtures/structured_data.jsonld'));
 
-        $extension = new StructuredDataExtension($page, 'UTF-8');
+        $extension = new StructuredDataExtension($page);
 
         $this->assertEquals(
 '<script type="application/ld+json">{

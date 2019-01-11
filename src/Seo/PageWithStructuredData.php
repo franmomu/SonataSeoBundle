@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the Sonata Project package.
  *
@@ -19,16 +21,12 @@ interface PageWithStructuredData
     /**
      * Set the structured data as an JSON-LD string.
      *
-     * @param string $structuredData
-     *
      * @return SeoPageInterface
      */
-    public function setStructuredData($structuredData);
+    public function setStructuredData(string $structuredData);
 
     /**
      * Returns a JSON-LD string to serve i.e. as a google snippet definition.
-     *
-     * @return string
      */
-    public function getStructuredData();
+    public function getStructuredData(): string;
 }

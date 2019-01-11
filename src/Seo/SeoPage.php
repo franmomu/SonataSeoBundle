@@ -402,29 +402,12 @@ class SeoPage implements SeoPageInterface, PageWithStructuredData
         return $this->oembedLinks;
     }
 
-    /**
-     * @param mixed $meta
-     *
-     * @return array
-     */
-    private function normalize($meta)
-    {
-        if (\is_string($meta)) {
-            return [$meta, []];
-        }
-
-        return $meta;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getStructuredData()
+    public function getStructuredData(): string
     {
         return $this->structuredData;
     }
 
-    public function setStructuredData($structuredData)
+    public function setStructuredData(string $structuredData)
     {
         $this->structuredData = $structuredData;
 
@@ -438,7 +421,7 @@ class SeoPage implements SeoPageInterface, PageWithStructuredData
      */
     private function normalize($meta)
     {
-        if (is_string($meta)) {
+        if (\is_string($meta)) {
             return [$meta, []];
         }
 

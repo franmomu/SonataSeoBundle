@@ -167,7 +167,7 @@ class SeoPageTest extends TestCase
         $this->assertInstanceOf(SeoPage::class, $page->setSeparator('-'));
     }
 
-    public function testSetStructuredData()
+    public function testSetStructuredData(): void
     {
         $page = new SeoPage();
         $structuredData = file_get_contents(__DIR__.'/../Fixtures/structured_data.jsonld');

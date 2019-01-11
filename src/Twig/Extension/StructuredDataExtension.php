@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the Sonata Project package.
  *
@@ -11,34 +13,26 @@
 
 namespace Sonata\SeoBundle\Twig\Extension;
 
-use Sonata\SeoBundle\Seo\StructuredDataAwarePage;
+use Sonata\SeoBundle\Seo\PageWithStructuredData;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
 
 /**
  * @author Maximilian Berghoff <Maximilian.Berghoff@mayflower.de>
  */
-class StructuredDataExtension extends AbstractExtension
+final class StructuredDataExtension extends AbstractExtension
 {
     /**
-     * @var StructuredDataAwarePage
+     * @var PageWithStructuredData
      */
-    protected $page;
+    private $page;
 
-    /**
-     * @var string
-     */
-    protected $encoding;
-
-    /**
-     * @param StructuredDataAwarePage $page
-     */
-    public function __construct(StructuredDataAwarePage $page)
+    public function __construct(PageWithStructuredData $page)
     {
         $this->page = $page;
     }
 
-    public function getFunctions()
+    public function getFunctions(): array
     {
         return [
             new TwigFunction('sonata_seo_structured_data', [$this, 'getStructuredData'], ['is_safe' => ['html']]),
@@ -47,10 +41,8 @@ class StructuredDataExtension extends AbstractExtension
 
     /**
      * Creates a script tag with type 'json-ld' and the JSON-LD string stored in page object.
-     *
-     * @return string
      */
-    public function getStructuredData()
+    public function getStructuredData(): string
     {
         if (empty($this->page->getStructuredData())) {
             return '';
