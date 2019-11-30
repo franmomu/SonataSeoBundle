@@ -9,13 +9,6 @@ jobs:
       - name: Composer dependencies
         run: composer install --no-ansi --no-interaction --no-scripts --no-suggest --no-progress --prefer-dist
       - name: Requiring PHPStan
-        run: composer require phpstan/phpstan ^0.11.19 \
-            && composer global require phpstan/phpstan-doctrine \
-            && composer global require phpstan/phpstan-phpunit \
-            && composer global require phpstan/phpstan-nette \
-            && composer global require phpstan/phpstan-symfony \
-            && composer global require phpstan/phpstan-mockery \
-            && composer global require phpstan/phpstan-webmozart-assert \
-            && composer global show | grep phpstan
+        run: composer require phpstan/phpstan ^0.11.19 && composer global require phpstan/phpstan-doctrine && composer global require phpstan/phpstan-phpunit && composer global require phpstan/phpstan-nette && composer global require phpstan/phpstan-symfony && composer global require phpstan/phpstan-mockery && composer global require phpstan/phpstan-webmozart-assert && composer global show | grep phpstan
       - name: Run PHPStan
         run: vendor/bin/phpstan analyse
