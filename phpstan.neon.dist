@@ -3,6 +3,7 @@ parameters:
 
     paths:
         - src
+        - tests
 
     excludes_analyse:
         - tests/bootstrap.php
@@ -10,3 +11,4 @@ parameters:
 
     autoload_files:
         - vendor/autoload.php
+        - vendor/bin/.phpunit/phpunit-7.4/vendor/autoload.php
