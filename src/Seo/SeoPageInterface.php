@@ -110,13 +110,6 @@ interface SeoPageInterface
     public function getLinkCanonical();
 
     /**
-     * @param string $separator
-     *
-     * @return SeoPageInterface
-     */
-    public function setSeparator($separator);
-
-    /**
      * @return SeoPageInterface
      */
     public function setLangAlternates(array $langAlternates);
