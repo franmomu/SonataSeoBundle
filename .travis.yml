@@ -6,6 +6,7 @@ branches:
   only:
     - master
     - 2.x
+    - test_ga
 
 language: php
 
